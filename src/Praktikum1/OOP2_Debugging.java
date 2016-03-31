@@ -8,7 +8,7 @@ package Praktikum1;
  * 
  * @author Jens Lambert
  * @version 1.1
- * debugged by Falk Schmitz
+ * debugged by Falk Schmitz jhfjf
  */
 public class OOP2_Debugging {
 	private boolean hatVersatz = false;
