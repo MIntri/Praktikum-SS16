@@ -7,7 +7,7 @@ package Praktikum1;
  * Einfache Prozeduren mit 10 Fehlern aus Praktikum OOP1 Teil 7
  * 
  * @author Jens Lambert
- * @version 1.1
+ * @versi
  * debugged by Falk Schmitz tztz
  */
 public class OOP2_Debugging {
