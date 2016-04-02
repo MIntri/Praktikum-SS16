@@ -1,4 +1,4 @@
-// Here You can type your custom JavaScript...
+// simple JS script zum automatischen gruppen anmelden in FBM
 setTimeout(clickBtn,1000);
 
 function clickBtn(){
@@ -6,5 +6,4 @@ function clickBtn(){
     console.log("foobar");
     wishedgroupbutton.getElementsByTagName("a")[0].click();
 }
-//alert(grouplink);
-//window.setTimeout('window.location = grouplink',2000);
+
