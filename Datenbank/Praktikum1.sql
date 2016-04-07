@@ -72,7 +72,7 @@ INSERT INTO Dozent (PersId, Name, Fach)
 VALUES (4001, 'Schwab-Trapp', 'Mediengestaltung');
 
 INSERT INTO Dozent 
-VALUES (4711, 'Dahm', 'Informatik', "H1.18b");
+VALUES (4711, 'Dahm', 'Informatik', 'H1.18b');
 
 INSERT INTO Dozent 
 VALUES (4712, 'Rakow', 'Informatik', 'H1.18b');
@@ -147,9 +147,10 @@ WHERE Semester = (Select MIN(Semester) FROM Student);
 SELECT D.PersId, D.Name, SUM(K.Deputat)
 FROM Dozent D, Kurs K
 WHERE K.PersId = D.PersId
-AND K.Deputat > 7
 AND D.Buero LIKE 'H%'
 GROUP BY D.PersId, D.Name
+HAVING SUM(K.Deputat) > 7
+;
 
 /* Auswertung in der Reihenfolge:
 
@@ -186,6 +187,7 @@ ORDER BY K1.Name;
 SELECT KURSNR, NAME, DEPUTAT
 FROM Kurs
 WHERE DEPUTAT >= (SELECT AVG(DEPUTAT ) FROM KURS)
+ORDER BY DEPUTAT DESC;
 
 /* Join */
 
@@ -193,6 +195,6 @@ SELECT K1.KURSNR, K1.NAME, K1.DEPUTAT
 FROM Kurs K1, Kurs K2
 HAVING K1.DEPUTAT >= AVG(K2.DEPUTAT)
 GROUP BY K1.KURSNR, K1.NAME, K1.DEPUTAT
-ORDER BY K1.DEPUTAT DESC
+ORDER BY K1.DEPUTAT DESC;
 
 /* Ende des Skripts */
