@@ -6,7 +6,7 @@ package Praktikum2;
  * @author Mintri
  * 
  */
-public class LiLiString {
+public class LiLiString2work {
 
 	// IV
 	/**
@@ -18,7 +18,7 @@ public class LiLiString {
 	/**
 	 * Constructer für leere Liste
 	 */
-	public LiLiString() {
+	public LiLiString2work() {
 		first = null;
 	}
 
@@ -29,9 +29,13 @@ public class LiLiString {
 	 *            Daten die gespeichert werden sollen.
 	 */
 	public void add(String data) {
-		Node newNode = new Node(data);
-		newNode.append(first);
-		first = newNode;
+		if(first == null)
+			first= new Node(data);
+		else
+			first = first.add(data);
+		//Node newNode = new Node(data);
+		//newNode.append(first);
+		
 	}
 
 	/**
@@ -40,38 +44,25 @@ public class LiLiString {
 	 * @param data
 	 */
 	public void append(String data) {
-		Node newNode = new Node(data);
 		if (first == null) {
-			first = newNode;
+			first = new Node(data);
 		} else {
-			first.append(newNode);
+			first.append(data);
 		}
 	}
 	/**
 	 *  Listet alle Einträge auf.
 	 */
 	public String toString(){
-		
 		// output buffer
 		StringBuilder output = new StringBuilder();
-		//nächster Knoten
-		Node next;
 		//prüfen ob der erste Knoten leer ist
 		if(first==null){
 			return output.append("Liste ist leer").toString();
 		} else {
-			//daten an den output buffer anhängen.
-			output.append( first.getData());
-			// nächster KNoten abgfragen und speichern
-			next = first.getNextNode();
-		}
-		//schleife geht solange weiter wie es einen nächsten KNoten gibt. WEnn der Nächste KNoten nicht da ist, also null, wird die schleife beendet
-		while(next!=null){
-			output.append(", "+next.getData());
-			next=next.getNextNode();
-		}
-		
+			output = first.buildString();
 		return output.toString();
+		}
 	}
 	/**
 	 * Prüft ob ein Word in der Liste enthalten ist
@@ -79,43 +70,21 @@ public class LiLiString {
 	 * @return true, wenn WOrt vorhanden / false, wenn wort nicht vorhanden ist.
 	 */
 	public boolean searchString(String searchWord){
-		Node next;
 		if(first == null){
 			return false;
 		} else {
-			next = first;
+			return first.searchString(searchWord);
 		}
-		//schleife geht solange weiter wie es einen nächsten KNoten gibt. WEnn der Nächste KNoten nicht da ist, also null, wird die schleife beendet
-		while(next != null){
-			if(next.getData().equals(searchWord)) return true;
-			next = next.getNextNode();
-		}
-		return false;
 	}
 	/**
 	 * Löscht den Eintrag auf den das Suchwort zutrifft.
 	 * @param deleteWord der EIntrag der gelöscht werden soll
 	 */
-	public void deleteString(String deleteWord){
-		Node deleteNode=first;
-		Node previousNode=null;
-		
-		boolean found = false;
-		
-		while(!found){
-			if(deleteNode.getData().equals(deleteWord)){
-				found = true;
-			} else {
-				previousNode = deleteNode;
-				deleteNode = deleteNode.getNextNode();
-				
-			}
+	public void deleteNode(String deleteWord){
+		if(first != null){
+			first.deleteNode(deleteWord);
 		}
-		if(previousNode==null){
-			first = deleteNode.getNextNode();
-		} else {
-			previousNode.insertAfter(deleteNode.getNextNode());		
-			}
+		
 	}
 
 	
@@ -146,6 +115,16 @@ public class LiLiString {
 		}
 
 		/**
+		 * Fügt vorne an der Liste einen Knoten an
+		 * @param data INhalt
+		 * @return new erset Node
+		 */
+		private Node add(String data){
+			Node newFirst = new Node(data);
+			newFirst.next = this;
+			return newFirst;
+		}
+		/**
 		 * Überschreibt die Daten des Knotens
 		 * 
 		 * @param Data
@@ -161,11 +140,12 @@ public class LiLiString {
 		 * @param nextNode
 		 *            nächster Knoten
 		 */
-		private void append(Node nextNode) {
+		private void append(String data) {
+			Node nextNode = new Node(data);
 			if (next == null) {
 				next = nextNode;
 			} else {
-				next.append(nextNode);
+				this.next.append(data);
 			}
 
 		}
@@ -192,10 +172,56 @@ public class LiLiString {
 		private Node getNextNode(){
 			return next;
 		}
+		
+		private StringBuilder buildString(){
+			StringBuilder output = new StringBuilder();
+			output.append(data);
+			Node next = this.next;
+			while(next!=null){
+				output.append(", "+next.data);
+				next=next.getNextNode();
+			}
+			return output;
+		}
+		
+		private boolean searchString(String searchWord){
+			
+			Node next =this;
+			//schleife geht solange weiter wie es einen nächsten KNoten gibt. WEnn der Nächste KNoten nicht da ist, also null, wird die schleife beendet
+			while(next != null){
+				if(next.getData().equals(searchWord)) return true;
+				next = next.getNextNode();
+			}
+			return false;
+			
+		}
+		
+		private void deleteNode(String deleteWord){
+			
+			Node deleteNode=this;
+			Node previousNode=null;
+			
+			boolean found = false;
+			
+			while(!found){
+				if(deleteNode.data.equals(deleteWord)){
+					found = true;
+				} else {
+					previousNode = deleteNode;
+					deleteNode = deleteNode.next;
+					
+				}
+			}
+			if(previousNode==null){
+				first = deleteNode.getNextNode();
+			} else {
+				previousNode.insertAfter(deleteNode.getNextNode());		
+				}
+		}
 	}
-
+	
 	public static void main(String[] args) {
-		LiLiString list = new LiLiString();
+		LiLiString2work list = new LiLiString2work();
 		System.out.println("Test append: start");
 		for (int i = 0; i < 10; i++) {
 			list.append("hallo" + i);
@@ -222,7 +248,7 @@ public class LiLiString {
 		System.out.println("Liste vor dem Löschen:");
 		System.out.println("Listeneinträge: "+list);
 		System.out.println("Eintrag \"bye2\" wird gelöscht. Erwartetes Ergebnis: ... bye3, bye1, ...");
-		list.deleteString("bye2");
+		list.deleteNode("bye2");
 		System.out.println("Listeneinträge: "+list);
 		System.out.println();
 		System.out.println("Test löschen: done");
