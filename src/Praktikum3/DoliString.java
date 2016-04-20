@@ -306,7 +306,7 @@ public class DoliString{
 		System.out.println("Iinital Liste");
 		System.out.println(list);
 		System.out.println("Einfügen von \"hallo2\"");
-		list.insertInOrder("hallo9");
+		list.insertInOrder("hallo91");
 		System.out.println("Liste nach einfügen");
 		System.out.println(list);
 		/*
