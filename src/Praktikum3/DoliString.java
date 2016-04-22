@@ -18,6 +18,7 @@ public class DoliString{
 	/*
 	 * letzer Knoten
 	 */
+	@SuppressWarnings("unused")
 	private Node last;
 
 	// IM
@@ -197,7 +198,11 @@ public class DoliString{
 		private Node getNextNode(){
 			return next;
 		}
-		
+		/**
+		 * fügt das neue element geordnet ein
+		 * Vorbedingung: lIste ist geordnet
+		 * @param data
+		 */
 		private void insertInOrder(String data){
 			//true wenn neuer String kleiner ist als der wert der this node
 			if(this.data.compareTo(data)>= 1){

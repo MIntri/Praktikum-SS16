@@ -1,11 +1,15 @@
 package Praktikum2;
 
+import java.util.Iterator;
+
 /**
  * Mit dieser Klasse kann eine Linked Liste erstellt und verwaltet werden
  * 
  * @author Mintri
  * 
  */
+
+
 public class LiLiString2work {
 
 	// IV
@@ -252,7 +256,7 @@ public class LiLiString2work {
 		System.out.println("Listeneinträge: "+list);
 		System.out.println();
 		System.out.println("Test löschen: done");
-		
-				
+		System.out.println();
+
 	}
 }
