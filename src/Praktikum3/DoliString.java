@@ -1,5 +1,7 @@
 package Praktikum3;
 
+import java.util.Iterator;
+
 
 
 /**
@@ -8,7 +10,7 @@ package Praktikum3;
  * @author Mintri
  * 
  */
-public class DoliString{
+public class DoliString implements Iterable{
 
 	// IV
 	/**
@@ -63,13 +65,11 @@ public class DoliString{
 	public String toString(){
 		// output buffer
 		StringBuilder output = new StringBuilder();
-		//prüfen ob der erste Knoten leer ist
-		if(first==null){
-			return output.append("Liste ist leer").toString();
-		} else {
-			output = first.buildString();
-		return output.toString();
+		Iterator it = iterator();
+		while(it.hasNext()){
+			output.append(it.next()+", ");
 		}
+		return output.toString();
 	}
 	/**
 	 * Prüft ob ein Word in der Liste enthalten ist
@@ -102,6 +102,12 @@ public class DoliString{
 			last = first = new Node(data);
 		}
 	}
+	
+	public Iterator iterator(){
+		return new DoliIterator(first);
+	}
+	
+	
 
 	
 	/**
@@ -277,8 +283,37 @@ public class DoliString{
 		}
 	}
 	
+	class DoliIterator implements Iterator{
+
+		Node current;
+		
+		public DoliIterator(Node f){
+			current = f;
+		}
+		/**
+		 * prüft ob es einen aktuellen knoten gibt
+		 */
+		public boolean hasNext() {
+			return current!=null;
+		}
+		/**
+		 * gibt den wert des aktuellen knotens zurück und dnan zum nächsten KNoten
+		 */
+		public Object next() {
+			if(hasNext()){
+				Node temp=current;
+				current=current.getNextNode();
+				return temp.getData();
+			}
+			return null;
+		}
+		
+	}
+	
 	public static void main(String[] args) {
+		
 		DoliString list = new DoliString();
+		
 		System.out.println("Test append: start");
 		for (int i = 0; i < 10; i++) {
 			list.append("hallo" + i);
@@ -319,6 +354,14 @@ public class DoliString{
 		System.out.println();
 		System.out.println("Test löschen: done");
 		*/
+		
+		//Prakt 4
+		Iterator it = list.iterator();
+		while(it.hasNext()){
+			System.out.println(it.next());
+		}
 				
 	}
+
+	
 }
