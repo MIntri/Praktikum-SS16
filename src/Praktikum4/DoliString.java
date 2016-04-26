@@ -1,4 +1,4 @@
-package Praktikum3;
+package Praktikum4;
 
 import java.util.Iterator;
 
@@ -20,7 +20,6 @@ public class DoliString implements Iterable{
 	/*
 	 * letzer Knoten
 	 */
-	@SuppressWarnings("unused")
 	private Node last;
 
 	// IM
@@ -204,11 +203,7 @@ public class DoliString implements Iterable{
 		private Node getNextNode(){
 			return next;
 		}
-		/**
-		 * fügt das neue element geordnet ein
-		 * Vorbedingung: lIste ist geordnet
-		 * @param data
-		 */
+		
 		private void insertInOrder(String data){
 			//true wenn neuer String kleiner ist als der wert der this node
 			if(this.data.compareTo(data)>= 1){
