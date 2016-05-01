@@ -63,49 +63,45 @@ public class StringTree {
 		 * @param n NUtzlast
 		 */
 		private void add(String n) {
-			switch (nutzlast.compareTo(n)) {
-			case 0:
-				break;
-			case 1:
-				if(kleiner == null) 
-					kleiner = new Node(n);
-				else
-					kleiner.add(n);
-				break;
-			case -1:
+			if(nutzlast.compareTo(n)<=-1) {
 				if(groesser == null)
 					groesser = new Node(n);
 				else
 					groesser.add(n);
-			default:
-				break;
+			}
+			if(nutzlast.compareTo(n)>=1) {
+				if(kleiner == null) 
+					kleiner = new Node(n);
+				else
+					kleiner.add(n);
 			}
 		}
 		
 		private boolean contains(String n) {
-			switch (nutzlast.compareTo(n)) {
-			case 0:
-				return true;
-			case 1:
-				if(kleiner == null) 
-					return false;
-				else
-					kleiner.contains(n);
-				break;
-			case -1:
+			if(nutzlast.compareTo(n)<=-1) {
 				if(groesser == null)
 					return false;
 				else
 					groesser.contains(n);
-			default:
-				break;
 			}
-			return false;
+			if(nutzlast.compareTo(n)>=1) {
+				if(kleiner == null) 
+					return false;
+				else
+					kleiner.contains(n);
+			}
+			return true;
 		}
 	}
 
 	public static void main(String[] args) {
+		StringTree tree = new StringTree();
+		tree.add("hallo5");
+		for (int i = 0; i < 20; i++) {
+			tree.add("hallo" + i);
+		}
 		
+		System.out.println(tree.contains("Hallo9"));
 	}
 
 }
