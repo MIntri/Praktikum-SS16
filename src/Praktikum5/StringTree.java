@@ -78,19 +78,20 @@ public class StringTree {
 		}
 		
 		private boolean contains(String n) {
+			if(nutzlast.compareTo(n)==0){
+				return true;
+			}
+			
 			if(nutzlast.compareTo(n)<=-1) {
-				if(groesser == null)
-					return false;
-				else
-					groesser.contains(n);
+				if(groesser != null)
+				return	groesser.contains(n);
 			}
 			if(nutzlast.compareTo(n)>=1) {
-				if(kleiner == null) 
-					return false;
-				else
-					kleiner.contains(n);
+				if(kleiner != null) 
+				return	kleiner.contains(n);
 			}
-			return true;
+			
+			return false;
 		}
 	}
 
@@ -101,7 +102,7 @@ public class StringTree {
 			tree.add("hallo" + i);
 		}
 		
-		System.out.println(tree.contains("Hallo9"));
+		System.out.println(tree.contains("hallo45"));
 	}
 
 }
