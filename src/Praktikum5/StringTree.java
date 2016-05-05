@@ -39,6 +39,10 @@ public class StringTree {
 		 return root.contains(n);
 	}
 	
+	public String toString(){
+		return root.transverse();
+	}
+	
 	//Diese KLasse stellt einen Knoten im Baum da
 	private class Node{
 		//nächste Node im groesser pfad
@@ -93,16 +97,30 @@ public class StringTree {
 			
 			return false;
 		}
+		
+		private String transverse(){
+			StringBuilder output = new StringBuilder();
+			
+			if(kleiner!= null)
+				output.append(kleiner.transverse());
+			output.append(nutzlast+" ");
+			if(groesser!= null)
+				output.append(groesser.transverse());
+			
+			return output.toString();
+		}
+		
+		
 	}
 
 	public static void main(String[] args) {
 		StringTree tree = new StringTree();
 		tree.add("hallo5");
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 10; i++) {
 			tree.add("hallo" + i);
 		}
 		
-		System.out.println(tree.contains("hallo45"));
+		System.out.println(tree);
 	}
 
 }
