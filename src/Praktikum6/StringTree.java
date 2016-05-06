@@ -188,7 +188,7 @@ public class StringTree {
 				if (kleiner != null)
 					return kleiner.NodePreZlk(zlk);
 			}
-			return new Node("nope");
+			return null;
 		}
 
 		private boolean isZlkKleiner(Node zlk, Node preZlk) {
@@ -210,7 +210,7 @@ public class StringTree {
 			// kein nachfolger von zlk
 			if (zlk.groesser == null && zlk.kleiner == null) {
 				//prüfen ob root gelöscht wird
-				if (preZlk.nutzlast.equals("nope")) {
+				if (preZlk == null) {
 					updateRoot(null);
 				} else {
 					// verhältnis von zlk und preZlk prüfen
@@ -222,7 +222,7 @@ public class StringTree {
 			}// 1 nachfolger von zlk
 			if (zlk.groesser == null ^ zlk.kleiner == null){
 				// prüfen ob root gelöscht wird
-				if (preZlk.nutzlast.equals("nope")) {
+				if (preZlk == null) {
 					if (zlk.groesser != null) {
 						updateRoot(zlk.groesser); 
 					} else {
@@ -253,7 +253,7 @@ public class StringTree {
 				Node nextNutzlast = nextNutzlast(zlk);
 				deleteNode(nextNutzlast.nutzlast);
 				// prüfen ob root gelöscht wird
-				if (preZlk.nutzlast.equals("nope")) {
+				if (preZlk == null) {
 					nextNutzlast.kleiner = zlk.kleiner;
 					nextNutzlast.groesser = zlk.groesser;
 					updateRoot(nextNutzlast);
