@@ -163,7 +163,7 @@ public class StringTree {
 				if (kleiner != null)
 					return kleiner.Zlk(s);
 			}
-			return new Node("nope");
+			return null;
 		}
 
 		/**
@@ -205,69 +205,71 @@ public class StringTree {
 		 */
 		private void deleteNode(String s) {
 			Node zlk = Zlk(s);
-			Node preZlk = NodePreZlk(zlk);
 			
-			// kein nachfolger von zlk
-			if (zlk.groesser == null && zlk.kleiner == null) {
-				//prüfen ob root gelöscht wird
-				if (preZlk == null) {
-					updateRoot(null);
-				} else {
-					// verhältnis von zlk und preZlk prüfen
-					if (isZlkKleiner(zlk, preZlk))
-						preZlk.kleiner = null;
-					else
-						preZlk.groesser = null;
-				}
-			}// 1 nachfolger von zlk
-			if (zlk.groesser == null ^ zlk.kleiner == null){
-				// prüfen ob root gelöscht wird
-				if (preZlk == null) {
-					if (zlk.groesser != null) {
-						updateRoot(zlk.groesser); 
+			if(zlk != null){
+				Node preZlk = NodePreZlk(zlk);
+				// kein nachfolger von zlk
+				if (zlk.groesser == null && zlk.kleiner == null) {
+					//prüfen ob root gelöscht wird
+					if (preZlk == null) {
+						updateRoot(null);
 					} else {
-						updateRoot(zlk.kleiner);
+						// verhältnis von zlk und preZlk prüfen
+						if (isZlkKleiner(zlk, preZlk))
+							preZlk.kleiner = null;
+						else
+							preZlk.groesser = null;
 					}
-				} else {
-					// verhältnis von zlk und preZlk prüfen
-					if (isZlkKleiner(zlk, preZlk)) {
-						// richtigen nach folger von zlk auswählen
+				}// 1 nachfolger von zlk
+				if (zlk.groesser == null ^ zlk.kleiner == null){
+					// prüfen ob root gelöscht wird
+					if (preZlk == null) {
 						if (zlk.groesser != null) {
-							preZlk.kleiner = zlk.groesser;
+							updateRoot(zlk.groesser); 
 						} else {
-							preZlk.kleiner = zlk.kleiner;
+							updateRoot(zlk.kleiner);
 						}
 					} else {
-						// richtigen nach folger von zlk auswählen
-						if (zlk.groesser != null) {
-							preZlk.groesser = zlk.groesser;
+						// verhältnis von zlk und preZlk prüfen
+						if (isZlkKleiner(zlk, preZlk)) {
+							// richtigen nach folger von zlk auswählen
+							if (zlk.groesser != null) {
+								preZlk.kleiner = zlk.groesser;
+							} else {
+								preZlk.kleiner = zlk.kleiner;
+							}
 						} else {
-							preZlk.groesser = zlk.kleiner;
+							// richtigen nach folger von zlk auswählen
+							if (zlk.groesser != null) {
+								preZlk.groesser = zlk.groesser;
+							} else {
+								preZlk.groesser = zlk.kleiner;
+							}
 						}
 					}
 				}
-			}
-			// 2 nachfolger von zlk
-			if (zlk.groesser != null && zlk.kleiner != null){
-				//node mit dem nächsten wert raussuchen und löschen
-				Node nextNutzlast = nextNutzlast(zlk);
-				deleteNode(nextNutzlast.nutzlast);
-				// prüfen ob root gelöscht wird
-				if (preZlk == null) {
-					nextNutzlast.kleiner = zlk.kleiner;
-					nextNutzlast.groesser = zlk.groesser;
-					updateRoot(nextNutzlast);
-				}
-				else{
-					
-					nextNutzlast.kleiner = zlk.kleiner;
-					nextNutzlast.groesser = zlk.groesser;
-					
-					// verhältnis von zlk und preZlk prüfen
-					if (isZlkKleiner(zlk, preZlk)) {
-						preZlk.kleiner = nextNutzlast;
-					} else {
-						preZlk.groesser = nextNutzlast;
+				// 2 nachfolger von zlk
+				if (zlk.groesser != null && zlk.kleiner != null){
+					//node mit dem nächsten wert raussuchen und löschen
+					Node nextNutzlast = nextNutzlast(zlk);
+					deleteNode(nextNutzlast.nutzlast);
+					// prüfen ob root gelöscht wird
+					if (preZlk == null) {
+						nextNutzlast.kleiner = zlk.kleiner;
+						nextNutzlast.groesser = zlk.groesser;
+						updateRoot(nextNutzlast);
+					}
+					else{
+						
+						nextNutzlast.kleiner = zlk.kleiner;
+						nextNutzlast.groesser = zlk.groesser;
+						
+						// verhältnis von zlk und preZlk prüfen
+						if (isZlkKleiner(zlk, preZlk)) {
+							preZlk.kleiner = nextNutzlast;
+						} else {
+							preZlk.groesser = nextNutzlast;
+						}
 					}
 				}
 			}
@@ -299,9 +301,10 @@ public class StringTree {
 		for (int i = 0; i < 10; i++) {
 			tree.add("hallo" + i);
 		}
+		
 		System.out.println(tree);
 		
-		tree.delete("hallo5");
+		tree.delete("hallo6");
 		System.out.println(tree);
 	}
 
