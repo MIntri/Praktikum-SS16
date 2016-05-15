@@ -54,6 +54,13 @@ public class StringTree {
 		return root.transverse();
 	}
 
+	public String preOrder(){
+		return root.transversePre();
+	}
+	public String postOrder(){
+		return root.transversePost();
+	}
+	
 	private void updateRoot(Node root) {
 		this.root = root;
 	}
@@ -139,6 +146,47 @@ public class StringTree {
 			output.append(nutzlast + " ");
 			if (groesser != null)
 				output.append(groesser.transverse());
+
+			return output.toString();
+		}
+		
+		/**
+		 * Baut Baum als String in Pre Order zusammen
+		 * @return
+		 */
+		private String transversePre() {
+			StringBuilder output = new StringBuilder();
+			
+			output.append(nutzlast + " ");
+
+			if (kleiner != null)
+				output.append(kleiner.transverse());
+			
+			
+			
+			if (groesser != null)
+				output.append(groesser.transverse());
+
+			return output.toString();
+		}
+		/**
+		 * Baut Buam als String post Order zusammen
+		 * @return
+		 */
+		private String transversePost() {
+			StringBuilder output = new StringBuilder();
+			
+			
+
+			if (kleiner != null)
+				output.append(kleiner.transverse());
+			
+			
+			
+			if (groesser != null)
+				output.append(groesser.transverse());
+			
+			output.append(nutzlast + " ");
 
 			return output.toString();
 		}
@@ -302,9 +350,15 @@ public class StringTree {
 			tree.add("hallo" + i);
 		}
 		
-		System.out.println(tree);
+		System.out.println("In Order: "+tree);
+		System.out.println("Pre Order: "+tree.preOrder());
+		System.out.println("Post Order: "+tree.postOrder());
 		
-		tree.delete("hallo6");
+		System.out.println("Pre löschen");
+		System.out.println("In Order: "+tree);
+		
+		tree.delete("hallo54");
+		System.out.println("Post löschen");
 		System.out.println(tree);
 	}
 
