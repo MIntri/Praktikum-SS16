@@ -1,6 +1,8 @@
-package Praktikum7;
+package Praktikum8;
 
 import java.util.Iterator;
+
+import Praktikum7.Studi;
 
 /**
  * Die Klasse stellt einen Binären Baum für geordnete STrings da.
@@ -8,13 +10,13 @@ import java.util.Iterator;
  * @author Falk SChmitz
  * 
  */
-public class CompTree implements Iterable{
+public class GenTree <T extends Comparable<T>> implements Iterable<T>{
 	// IV
 	// WurzelKNoten
 	Node root;
 
 	// IM
-	public CompTree() {
+	public GenTree() {
 		root = null;
 	}
 
@@ -24,7 +26,7 @@ public class CompTree implements Iterable{
 	 * @param n
 	 *            Nutzlast
 	 */
-	public void add(Comparable n) {
+	public void add(T n) {
 		if (root == null)
 			root = new Node(n);
 		else
@@ -39,14 +41,14 @@ public class CompTree implements Iterable{
 	 *            zu prüfender wert
 	 * @return boolean true wenn ja, false wenn nicht
 	 */
-	public boolean contains(Comparable n) {
+	public boolean contains(T n) {
 		if (root == null)
 			return false;
 		else
 			return root.contains(n);
 	}
 
-	public void delete(Comparable s) {
+	public void delete(T s) {
 		root.deleteNode(s);
 	}
 
@@ -62,7 +64,7 @@ public class CompTree implements Iterable{
 		return root.transversePost();
 	}
 	
-	public Iterator iterator() {
+	public Iterator<T> iterator() {
 		return new CompIterator(root);
 	}
 
@@ -76,7 +78,7 @@ public class CompTree implements Iterable{
 		Node groesser;
 		// nächste Node im kleiner Pfad
 		Node kleiner;
-		Comparable nutzlast;
+		T nutzlast;
 
 		// IM
 		/**
@@ -84,7 +86,7 @@ public class CompTree implements Iterable{
 		 * 
 		 * @param n
 		 */
-		private Node(Comparable n) {
+		private Node(T n) {
 			groesser = null;
 			kleiner = null;
 			nutzlast = n;
@@ -96,7 +98,7 @@ public class CompTree implements Iterable{
 		 * @param n
 		 *            NUtzlast
 		 */
-		private void add(Comparable n) {
+		private void add(T n) {
 			if (nutzlast.compareTo(n) <= -1) {
 				if (groesser == null)
 					groesser = new Node(n);
@@ -118,7 +120,7 @@ public class CompTree implements Iterable{
 		 *            zu prüfender String
 		 * @return true wenn String vorhanden
 		 */
-		private boolean contains(Comparable n) {
+		private boolean contains(T n) {
 			if (nutzlast.compareTo(n) == 0) {
 				return true;
 			}
@@ -198,7 +200,7 @@ public class CompTree implements Iterable{
 		 *            Wert der gelöscht werden soll
 		 * @return ZLK Node
 		 */
-		private Node Zlk(Comparable s) {
+		private Node Zlk(T s) {
 			if (nutzlast.compareTo(s) == 0) {
 				return this;
 			}
@@ -253,7 +255,7 @@ public class CompTree implements Iterable{
 		 * @param s
 		 *            Nutzlast des Knotens der gelsöcht werden soll
 		 */
-		private void deleteNode(Comparable s) {
+		private void deleteNode(T s) {
 			Node zlk = Zlk(s);
 
 			if (zlk != null) {
@@ -350,7 +352,7 @@ public class CompTree implements Iterable{
 
 	}
 
-	private class CompIterator implements Iterator {
+	private class CompIterator implements Iterator<T> {
 
 		Node current;
 
@@ -362,7 +364,7 @@ public class CompTree implements Iterable{
 			return current!= null;
 		}
 
-		public Object next() {
+		public T next() {
 			if (hasNext()){
 				Node temp = current;
 				current = current.groesser;
@@ -373,59 +375,54 @@ public class CompTree implements Iterable{
 	}
 
 	public static void main(String[] args) {
-		CompTree sTree = new CompTree();
+		GenTree<String> sTree = new GenTree<String>();
+		sTree.add("huhu");
 		sTree.add("hallo5");
 		for (int i = 0; i < 10; i++) {
 			sTree.add("hallo" + i);
 		}
-		CompTree iTree = new CompTree();
+		
+		Iterator<String> sit = sTree.iterator();
+		while (sit.hasNext()){
+			if(sit.next().compareTo("huhu")==0) 
+				System.out.println("Juchu ein huhu");
+		}
+		for (String string : sTree) {
+			if(string.compareTo("huhu")==0) 
+				System.out.println("Juchu, immer noch ein huhu");
+		}
+		
+		//GenTree<Object> oTree = new GenTree<Object>; nö
+		
+		GenTree<Integer> iTree = new GenTree<Integer>();
 		iTree.add(5);
 		for (int i = 0; i < 10; i++) {
 			iTree.add(i);
 		}
-		CompTree fTree = new CompTree();
-		fTree.add(5.5);
-		for (int i = 0; i < 10; i++) {
-			fTree.add(i + 0.1);
-		}
-		System.out.println(sTree);
-		System.out.println(iTree);
-		System.out.println(fTree);
-		//
-		// CompTree mixTree = new CompTree();
-		// mixTree.add(1);
-		// mixTree.add("foobar");
-		// mixTree.add(4.2);
-
-		CompTree studiTree = new CompTree();
-
+		
+		GenTree<Studi> studiTree = new GenTree<Studi>();
 		studiTree.add(new Studi("drolf", 1));
 		studiTree.add(new Studi("alf", 2));
 		studiTree.add(new Studi("foobar", 3));
-
-		System.out.println(studiTree);
 		
-		iterateStudiTree(studiTree);
-		
-		Comparable foo = new Integer(3);
-		System.out.println(foo);
-	}
-	
-	public static void iterateStudiTree(CompTree tree){
-		Iterator it = tree.iterator();
-		while(it.hasNext()){
-			System.out.println(it.next());
+		Iterator<Integer> iit = iTree.iterator();
+		while(iit.hasNext()){
+			iit.next().intValue();
+		}
+		for (Integer in : iTree) {
+			in.intValue();
 		}
 		
-	}
-	public static void pruefStudiTree(CompTree tree){
-		Iterator it = tree.iterator();
-		while(it.hasNext()){
-			//it.
+		Iterator<Studi> studii = studiTree.iterator();
+		while(studii.hasNext()){
+			studii.next().pruefen("OOP");
 		}
-		for (Object object : tree) {
-			//object.
+		
+		for (Studi studi : studiTree) {
+			studi.pruefen("OOP");
 		}
+		
+		//iTree.add(new Studi("drolf", 1));
 		
 	}
 
