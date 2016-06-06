@@ -22,6 +22,9 @@ public class Wein {
 	 * gibt klassen name und alk. wert zurück
 	 */
 	public String toString(){
-		return getClass().getName() + " Alk.Wert: "+ alk; 
+		return getClass().getSimpleName() + " Alk.Wert: "+ alk; 
+	}
+	public String bla(){
+		return "bla";
 	}
 }

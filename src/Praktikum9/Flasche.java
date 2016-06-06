@@ -7,7 +7,7 @@ package Praktikum9;
  */
 public class Flasche<T extends Wein> {
 	//IV 
-	T inhalt= null;;
+	T inhalt= null;
 	/**
 	 * beim erstellen muss der wein der hinein soll angegeben werden
 	 * @param wein

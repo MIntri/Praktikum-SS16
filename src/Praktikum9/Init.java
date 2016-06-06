@@ -76,7 +76,12 @@ public class Init {
 		RegalWild[1] = rotweinFlasche;
 		RegalWild[2] = weinFlasche;
 		
+	RegalWild[0].inhalt.bla(); // weildcard nicht adden weil compiler kann nicht typsicher sein
+		
 		System.out.println(RegalRaw[0].ausgiessen());
+		System.out.println(RegalWild[1].ausgiessen());
+		RegalRaw[0].fuellenMit(rotwein); // funktioniert aber nicht typsicher
+		System.out.println(RegalRaw[0].inhalt.bla());
 		
 		}
 	
