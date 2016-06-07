@@ -1,5 +1,6 @@
 package Praktikum10;
 
+import java.util.Calendar;
 import java.util.TreeMap;
 
 public class Init {
@@ -35,6 +36,16 @@ public class Init {
 		finally {
 			System.out.println("*telefobuch drops mic*");
 		}
+		
+		Calendar cal = Calendar.getInstance();
+		Calendar foo = cal.getInstance();
+		foo.add(Calendar.DAY_OF_MONTH, 3);
+		
+		int delta = (int) (foo.getTimeInMillis()-cal.getTimeInMillis());
+		
+		System.out.println(delta/1000/60/60);
+		
 	}
+	
 
 }

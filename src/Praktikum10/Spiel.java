@@ -2,17 +2,26 @@ package Praktikum10;
 
 import java.util.Map;
 import java.util.TreeMap;
-
+/**
+ * Stelllt ein Sspiel da das Punkte sammelt.
+ * @author falks
+ *
+ */
 public class Spiel {
 
 	
 	//IV
 	TreeMap<Treffer,Integer> schaden;
-	
+	/**
+	 * instanzierungs construktor
+	 */
 	public Spiel(){
 		schaden = new TreeMap<>();
 	}
-	
+	/**
+	 * speichert einen treffer ab
+	 * @param t
+	 */
 	public void registrieren(Treffer t){
 		if(!schaden.containsKey(t)){
 			schaden.put(t, 1);
@@ -21,7 +30,9 @@ public class Spiel {
 			schaden.put(t, schaden.get(t)+1);	
 		}
 	}
-	
+	/**
+	 * erstellt test treffer und speichert diese ab
+	 */
 	public void testTreffer(){
 		for(int i=1;i<15;i++){
 			if(i%3==0) registrieren(new Treffer(50));
@@ -29,7 +40,10 @@ public class Spiel {
 			if(i%7==0) registrieren(new Treffer(200));
 		}
 	}
-	
+	/**
+	 * gibt einen geordneten Streing mit allen gespeicherten treffern zurück
+	 * @return
+	 */
 	public String trefferText() {
 		StringBuilder output = new StringBuilder();
 		for(Map.Entry<Treffer, Integer> entry : schaden.entrySet()){
@@ -38,7 +52,10 @@ public class Spiel {
 		return output.toString();
 		//return schaden.toString();
 	}
-	
+	/**
+	 * berechnet die score für das spiel
+	 * @return
+	 */
 	public int score(){
 		int gutSum = 0;
 		int badSum = 0;
