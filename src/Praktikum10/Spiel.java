@@ -20,7 +20,7 @@ public class Spiel {
 	}
 	/**
 	 * speichert einen treffer ab
-	 * @param t
+	 * @param t - Treffer der gespeichert werden soll
 	 */
 	public void registrieren(Treffer t){
 		if(!schaden.containsKey(t)){
@@ -42,7 +42,7 @@ public class Spiel {
 	}
 	/**
 	 * gibt einen geordneten Streing mit allen gespeicherten treffern zurück
-	 * @return
+	 * @return String - geordnete Text
 	 */
 	public String trefferText() {
 		StringBuilder output = new StringBuilder();
@@ -54,7 +54,7 @@ public class Spiel {
 	}
 	/**
 	 * berechnet die score für das spiel
-	 * @return
+	 * @return int - punktzahl
 	 */
 	public int score(){
 		int gutSum = 0;

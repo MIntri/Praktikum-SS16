@@ -11,7 +11,7 @@ public class Treffer implements Comparable<Treffer>{
 	private Integer punktzahl;
 	/**
 	 * Treffer nur mit param = 50,100,200,500,750,1000
-	 * @param punktzahl
+	 * @param punktzahl - punktzahl mit der der Treffer erzeugt werden soll
 	 */
 	public Treffer(int punktzahl){
 		if(punktzahl==50||punktzahl==100||punktzahl==200||punktzahl==500||punktzahl==750||punktzahl==1000)
@@ -22,13 +22,14 @@ public class Treffer implements Comparable<Treffer>{
 	}
 	/**
 	 * bewertet die punktzashl 
-	 * @return boolean true wenn punktzahl>100
+	 * @return boolean - true wenn punktzahl>100
 	 */
 	public boolean istGuterTreffer(){
 		return punktzahl>100;
 	}
 	/**
 	 * normale compare implementations
+	 * @param o - Treffer mit dem verglichen werden soll
 	 */
 	@Override
 	public int compareTo(Treffer o) {
@@ -37,6 +38,7 @@ public class Treffer implements Comparable<Treffer>{
 	}
 	/**
 	 * gibt punktzahl zurück
+	 * @return String - die Punktzahl
 	 */
 	@Override
 	public String toString() {
@@ -45,7 +47,7 @@ public class Treffer implements Comparable<Treffer>{
 
 	/**
 	 * gibt punktzahl zurück
-	 * @return
+	 * @return Integer - die punktzahl
 	 */
 	public Integer getPunktzahl() {
 		return punktzahl;
