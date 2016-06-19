@@ -15,7 +15,7 @@ public class Init {
 		telefonbuch.put("foo", 1337);
 		telefonbuch.put("bar",1337);
 		
-		File output = new File("output.txt");
+		File output = new File("./res/output.txt");
 		MapWriter mw = null;
 		BufferedWriter bw =null;
 		FileWriter fw = null;
