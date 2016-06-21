@@ -130,13 +130,14 @@ public class EmpManager {
 	 * @param emp Neuer Mitarbeiter
 	 */
 	public void insert(Employee emp) {
-		String query ="Insert into emp (userid,firstname,lastname,sal) values (?,?,?,?)";
+		String query ="Insert into emp (id,userid,firstname,lastname,sal) values (?,?,?,?,?)";
 		try {
 			PreparedStatement prpStmt = con.createPreparedStatement(query);
-			prpStmt.setString(1, calcUserID(emp.getFirstName(), emp.getLastName()));
-			prpStmt.setString(2, emp.getFirstName());
-			prpStmt.setString(3, emp.getLastName());
-			prpStmt.setInt(4, emp.getSalary());
+			prpStmt.setInt(1, emp.getId());
+			prpStmt.setString(2, calcUserID(emp.getFirstName(), emp.getLastName()));
+			prpStmt.setString(3, emp.getFirstName());
+			prpStmt.setString(4, emp.getLastName());
+			prpStmt.setInt(5, emp.getSalary());
 			
 			
 			prpStmt.executeUpdate();
