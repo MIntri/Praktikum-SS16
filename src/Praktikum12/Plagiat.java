@@ -5,11 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.Buffer;
+import java.util.HashMap;
 import java.util.TreeSet;
 
 import com.sun.xml.internal.ws.client.ClientSchemaValidationTube;
 
-import CustomReader.CSVReader;
+import CustomReader.*;
 
 
 /**
@@ -25,9 +26,9 @@ import CustomReader.CSVReader;
  */
 public class Plagiat {
 	
-	//Ort der zu überprüfenden Datei
-	String inputFile;
-	//Ort der unnützen Wörter Datei
+	//gefilterter und gezählter Text
+	HashMap<String, Integer> filteredText;
+	//Unwichtige Worte
 	TreeSet<String> unimportantWords = new TreeSet<>();
 	
 	/**
@@ -90,7 +91,7 @@ public class Plagiat {
 	 * @param location der Ort der CSV Datei
 	 */
 	private void readUnimportantWords(String location){
-		//Deklarierung der Reader
+		//Deklaration der Reader
 		FileReader fr=null;
 		BufferedReader br= null;
 		CSVReader csvr = null;
@@ -125,6 +126,52 @@ public class Plagiat {
 		finally{
 			try {
 				csvr.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private void readFilteredText(String location){
+	//	Deklaration der benötigten Reader
+		FileReader fr =null;
+		BufferedReader br = null;
+		AllLowerCaseReader alr = null;
+		WordReader wr = null;
+		ImportantWordsReader iwr = null;
+		
+		//Buffer in dem der letzte Reader schreibt
+		char[] nextWord = new char[20];
+		
+		try {
+			fr = new FileReader(location);
+			br = new BufferedReader(fr);
+			alr = new AllLowerCaseReader(br);
+			wr = new WordReader(alr);
+			iwr = new ImportantWordsReader(wr);
+			//speichert die größe des nächsten Worts/Zählvariable
+			int i;
+			//Alle Wörter aus der Datei lesen
+			do{
+				//nächstes Wort vom CSV Reader
+				i = iwr.read(nextWord, 0, 20);
+				//baut das Chararray zu nem String zusammen
+				StringBuilder sb = new StringBuilder();
+				for(int j=1;j<=i;j++){
+					sb.append(nextWord[j]);
+				}
+				//Wort der Map hinzufügen
+				unimportantWords.add(sb.toString());
+			}while(i>0);
+		
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally{
+			try {
+				iwr.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

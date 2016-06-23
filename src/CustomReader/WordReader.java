@@ -3,32 +3,20 @@ package CustomReader;
 import java.io.FilterReader;
 import java.io.IOException;
 import java.io.Reader;
-/**
- * Erweiterter FilterReader. Liest die  ganze Wörter einer CSV Datei aus. 
- * Mit jedem read Aufruf, wird das nächste wort zurückgegeben.
- * Klasse implementiert nur die read(char[] cbuf, int off, int len) Funktion 
- * CSV-Datei darf maximal 1000 Zeichen lang sein.
- * 
- * @author Falk Schmitz
- *
- */
-public class CSVReader extends FilterReader {
+
+public class WordReader extends FilterReader {
+
 	//Index Zeiger
-	int index =1;
-	//eingelesener input von in
-	char[] input = new char[1000];
-	//anzahl der Zeichen beim read von in und somit auch Dateinende.
-	int inputSize = -1;
-	
-	/**
-	 * Erstellt den Reader mit vorrangehendem Reader
-	 * @param in vorrangehender Reader
-	 */
-	public CSVReader(Reader in) {
+		int index =1;
+		//eingelesener input von in
+		char[] input = new char[1000];
+		//anzahl der Zeichen beim read von in und somit auch Dateinende.
+		int inputSize = -1;
+		
+	public WordReader(Reader in) {
 		super(in);
 	}
-	
-	
+
 	/**
 	 * Liest das nächste Wort bis zum nächsten Trenn-Komma aus dem input Array.
 	 * 
@@ -61,12 +49,5 @@ public class CSVReader extends FilterReader {
 		int size=index - oldIndex-1;
 		
 		return size;
-	}
-	/**
-	 * setzt die Reader zum ersten Wort zurück
-	 */
-	@Override
-	public void reset() throws IOException {
-		index=1;
 	}
 }
