@@ -33,6 +33,10 @@ public class AllLowerCaseReader extends FilterReader {
 		if(c>=48&&c<=57) return c;
 		//kleinbuchstaben zurückgeben
 		if(c>=97&&c<=122) return c;
+		//Große umlaute umwandeln
+		if(c==220||c==196||c==214){c+=32; return c;}
+		//kleine umlaute und ß weitergeben
+		if(c==252||c==228||c==246||c==223)return c;
 		//-1 des filesendes zurückgeben
 		if(c==-1) return c;
 		//in allen anderen Fällen ein Leerzeichen zurückgeben

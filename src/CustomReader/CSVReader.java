@@ -17,15 +17,17 @@ public class CSVReader extends FilterReader {
 	int index =1;
 	//eingelesener input von in
 	char[] input = new char[1000];
-	//anzahl der Zeichen beim read von in und somit auch Dateinende.
+	//anzahl der Zeichen beim read von in.
 	int inputSize = -1;
 	
 	/**
 	 * Erstellt den Reader mit vorrangehendem Reader
 	 * @param in vorrangehender Reader
+	 * @throws IOException 
 	 */
-	public CSVReader(Reader in) {
+	public CSVReader(Reader in) throws IOException {
 		super(in);
+		inputSize =in.read(input, 0, 1000);
 	}
 	
 	
@@ -39,16 +41,14 @@ public class CSVReader extends FilterReader {
 	 */
 	@Override
 	public int read(char[] cbuf, int off, int len) throws IOException{
-		//Da der BufferedReader sich leert nach dem auslesen, darf ddieser nur bei der ersten Anwendung ausgelesen werden
-		if(inputSize<0)
-			inputSize =in.read(input, 0, 1000);
+		
 		//stelle merken bei der der Reader fürs näcshte Wort anfängt
 		int oldIndex = index;
 		//Zähler fürs schreiben in den Buffer
 		int i=1;
 		//Solange das nächste Zeichen in den Buffer schreiben bis ein ';' oder ',' und solange der Reader INdex nicht das Ende erreicht hat
 		//da eine CSV nicht mit Trennzeichen enden muss
-		while((input[index]!=';'&&input[index]!=',')&&index<inputSize){
+		while((input[index]!=';'&&input[index]!=',')&&index<inputSize&&(index - oldIndex-1)<=len){
 			cbuf[off+i]=input[index];
 			index++;
 			i++;
