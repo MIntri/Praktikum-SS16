@@ -13,7 +13,7 @@ import CustomReader.WordReader;
  * @author Falk Schmitz
  *
  */
-public class Init {
+public class InitPlagiat {
 
 	/**
 	 * Startet das Programm

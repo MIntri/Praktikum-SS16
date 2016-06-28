@@ -60,7 +60,7 @@ public class Plagiat {
 		// files[0] = URL zu checkende Textdatei
 		// files[1] = URL unwichtige Wörter CSV-Datei
 		String[] files = new String[2];
-		
+		try{
 		//testen ob erste Paramter -i ist 
 		if((args[0].substring(0,2).equals("-i")))
 			//test ob es eine txt Datei ist
@@ -86,7 +86,10 @@ public class Plagiat {
 				else
 					throw new ParamException("Second Paramter ist Wrong");
 		}
-		
+		}
+		catch(Exception e){
+			throw e;
+		}
 		return files;
 	}
 	
